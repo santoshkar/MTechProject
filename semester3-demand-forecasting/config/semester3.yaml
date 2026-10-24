@@ -1,0 +1,64 @@
+# Semester 3 experiment configuration.
+# Inventory replenishment is intentionally not part of this semester.
+
+seed: 42
+
+data:
+  source: m5
+  raw_dir: data/raw
+  processed_dir: data/processed
+  sales_file: sales_train_evaluation.csv
+  calendar_file: calendar.csv
+  prices_file: sell_prices.csv
+
+subset:
+  # Class labels use only the pre-holdout window. Fix these thresholds before
+  # looking at test metrics. They control the sample, not the model.
+  lookback_days: 365
+  counts:
+    fast: 40
+    slow: 40
+    intermittent: 40
+  fast_min_mean: 1.0
+  slow_max_mean: 0.5
+  intermittent_min_zero_rate: 0.50
+  intermittent_min_adi: 1.32
+  fill_from_medium: true
+
+forecast:
+  horizon: 28
+  seasonality: 7
+  n_windows: 4
+  min_history_days: 180
+  # 0.5 is required. It is the median point forecast for LightGBM and Chronos-2.
+  quantiles: [0.1, 0.5, 0.9]
+
+features:
+  lags: [1, 7, 14, 28, 56, 364]
+  rolling_windows: [7, 28, 56]
+  train_origin_step: 7
+  # Keep false unless you can justify that the next 28 days of price are known
+  # when the forecast is made. The same rule is used for LightGBM and Chronos-2.
+  assume_future_price_known: false
+
+models:
+  seasonal_naive: true
+  lightgbm: true
+  chronos: true
+  # Laptop-sized Chronos-2 checkpoint. Switch to amazon/chronos-2 for the
+  # full 120M model after checking the model card, licence, and runtime.
+  chronos_model_id: autogluon/chronos-2-small
+  chronos_device: cpu
+  chronos_batch_size: 32
+  chronos_context_length: 512
+  # Leave false for the primary run. Cross-learning makes results depend on
+  # batch composition and should be a separate, documented experiment.
+  chronos_cross_learning: false
+  lightgbm_params:
+    n_estimators: 200
+    learning_rate: 0.05
+    num_leaves: 31
+    min_child_samples: 20
+
+output:
+  reports_dir: reports

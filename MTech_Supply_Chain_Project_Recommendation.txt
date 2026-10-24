@@ -1,0 +1,381 @@
+M.TECH. PROJECT RECOMMENDATION
+Stream: Artificial Intelligence and Data Science Engineering (AI & DSE)
+Domain: Supply Chain
+Scope: Semester 3 project continuing into the Semester 4 major project
+Prepared: 22 October 2026
+
+======================================================================
+1. EXECUTIVE RECOMMENDATION
+======================================================================
+
+Recommended project:
+
+UNCERTAINTY-AWARE RETAIL DEMAND FORECASTING AND INVENTORY REPLENISHMENT
+USING TIME-SERIES FOUNDATION MODELS
+
+In simple terms:
+Predict how much of each product a store will sell, estimate how uncertain
+that prediction is, and recommend how much stock to order.
+
+This project offers a strong balance of:
+- Accessible public datasets.
+- Modern AI methods available through Python libraries.
+- Practical supply-chain relevance.
+- Manageable scope for a student with a Java background.
+- A clear extension from Semester 3 into Semester 4.
+
+Use pretrained models and established Python libraries. Building a neural
+network from scratch is not necessary.
+
+======================================================================
+2. COMPARISON OF PROJECT OPTIONS
+======================================================================
+
+A. Demand forecasting and inventory replenishment
+   Public data: Strong; Walmart M5 and UCI retail data.
+   Difficulty: Moderate for a Python beginner.
+   Semester 4 potential: Excellent.
+   Assessment: Best overall choice.
+
+
+C. Vehicle routing using AI
+   Public data: Many benchmark instances, often synthetic.
+   Difficulty: High; requires optimization as well as machine learning.
+   Semester 4 potential: Excellent.
+   Assessment: Better suited to someone interested in mathematical
+   optimization.
+
+D. Supplier disruption prediction
+   Public data: Real supplier relationships and disruption labels are
+   difficult to obtain publicly.
+   Difficulty: High.
+   Semester 4 potential: Good in principle.
+   Assessment: Risky without access to a suitable industry dataset.
+
+Recommendation:
+Choose option A. Avoid supplier-risk prediction as a first choice unless
+your college or employer can provide suitable data.
+
+======================================================================
+3. WHAT THE RECOMMENDED SYSTEM WILL DO
+======================================================================
+
+The application could display:
+- Expected sales for the next 7 or 28 days.
+- A prediction range rather than only a single forecast.
+- A replenishment recommendation based on simulated stock and delivery
+  lead time.
+- The trade-off between holding too much inventory and running out.
+
+This makes the project a supply-chain decision-support system, not merely
+a sales-prediction dashboard.
+
+Semester 3:
+Build and evaluate the demand-forecasting system.
+
+Semester 4:
+Extend it into uncertainty-aware inventory decisions and evaluate the
+business impact in simulation.
+
+The dataset, data pipeline, and core problem remain the same.
+
+======================================================================
+4. PUBLIC DATASETS
+======================================================================
+
+4.1 PRIMARY CHOICE: WALMART M5
+-----------------------------
+
+Official dataset:
+https://www.kaggle.com/competitions/m5-forecasting-accuracy/data
+
+Contents:
+- Daily sales for 3,049 products across 10 stores.
+- Calendar information and events.
+- Selling-price information.
+
+Why it is suitable:
+- A well-established retail forecasting benchmark.
+- Multiple products and stores.
+- Useful seasonality and pricing information.
+- Enough complexity for postgraduate research.
+
+Suggested starting scope:
+Use approximately 100-300 product-store time series. Select a reproducible
+mix of fast-moving, slow-moving, and intermittently selling products.
+Do not begin with the entire dataset.
+
+Access:
+Expect to need a free Kaggle account and acceptance of the applicable
+competition rules.
+
+Important limitations:
+- M5 records sales, not unconstrained customer demand.
+- It does not directly provide actual inventory levels, stockout labels,
+  supplier lead times, or inventory costs.
+- A zero-sales day must not automatically be labelled a stockout.
+- Lead times and inventory costs used in the project must be explicitly
+  documented assumptions.
+- Inventory outcomes must be described as simulation results, not as
+  demonstrated savings at Walmart.
+
+4.2 ALTERNATIVE: UCI ONLINE RETAIL II
+-----------------------------------
+
+Official dataset:
+https://archive.ics.uci.edu/dataset/502/online+retail+ii
+
+Contents:
+- 1,067,371 transaction records from a UK online retailer.
+- Coverage from December 2009 to December 2011.
+- Product, quantity, transaction date, price, customer, and country data.
+
+Access and license:
+- Direct download is available.
+- CC BY 4.0 license; attribution is required.
+
+Use in this project:
+An optional additional dataset for external validation in Semester 4.
+
+Cleaning requirements:
+- Handle cancellations.
+- Handle missing values.
+- Aggregate transaction records into suitable time series.
+
+Recommendation:
+Use M5 first. Add UCI Online Retail II only if time permits.
+
+======================================================================
+5. RECOMMENDED AI METHODS
+======================================================================
+
+A time-series foundation model is a pretrained forecasting model that can
+be applied to new time series without training a model from scratch.
+
+5.1 SEASONAL NAIVE
+-----------------
+Purpose:
+Predict using the corresponding previous seasonal period.
+
+Role:
+Essential simple baseline. A complex model should be compared against
+this before claiming improvement.
+
+5.2 LIGHTGBM
+------------
+Purpose:
+Learn from lagged sales, rolling statistics, calendar features, and price
+information available at forecast time.
+
+Role:
+Strong practical machine-learning baseline.
+
+5.3 CHRONOS-2
+-------------
+Purpose:
+Pretrained forecasting with covariate support and probabilistic output,
+including quantile forecasts.
+
+Role:
+Recommended main AI model.
+
+Official repository:
+https://github.com/amazon-science/chronos-forecasting
+
+The repository also offers smaller models in the Chronos family.
+
+5.4 TIMESFM 3.0
+--------------
+Purpose:
+An optional recent foundation-model comparator.
+
+Role:
+Add only after checking computing requirements and license terms.
+
+Official repository:
+https://github.com/google-research/timesfm
+
+License caution:
+The repository currently lists TimesFM 3.0. Its downloaded pretrained
+weights have a non-commercial, non-production license. Earlier weights
+through version 2.5 are Apache-2.0. Check the exact terms before use.
+
+MODEL SELECTION ADVICE
+----------------------
+Begin with:
+1. Seasonal naive.
+2. LightGBM.
+3. One foundation model, preferably Chronos-2.
+
+Do not include every model. Do not assume that the newest model will win.
+Finding when a simpler model performs better is a valid research outcome.
+
+Model availability and license details should be rechecked before
+implementation because they can change.
+
+======================================================================
+6. SEMESTER 3 PLAN: FORECASTING STUDY
+======================================================================
+
+Objective:
+Compare traditional machine learning with a pretrained time-series
+foundation model.
+
+Deliverables:
+1. A clean and reproducible data pipeline.
+2. Exploratory analysis of seasonality and intermittent sales.
+3. Seasonal-naive and LightGBM baselines.
+4. Chronos-2 forecasts.
+5. Evaluation across several chronological forecast windows.
+6. A small dashboard showing actual sales, forecasts, and uncertainty.
+
+Evaluation measures:
+- MAE or MASE for point forecasts.
+- Pinball loss for quantile forecasts.
+- Prediction-interval coverage.
+- Prediction-interval width.
+- Runtime and memory requirements.
+
+Metric caution:
+Avoid using MAPE as the primary measure because retail time series often
+contain zero sales.
+
+Expected outcome:
+A complete forecasting prototype and an experimental comparison suitable
+for the Semester 3 report and demonstration.
+
+======================================================================
+7. SEMESTER 4 PLAN: INVENTORY DECISION SUPPORT
+======================================================================
+
+Objective:
+Determine whether better uncertainty estimates produce better inventory
+replenishment decisions.
+
+Extensions:
+- Build an inventory simulator.
+- Include simple replenishment policies as baselines.
+- Add forecast-informed replenishment.
+- Test different delivery lead times.
+- Test different inventory holding and shortage costs.
+- Calibrate forecast uncertainty.
+- Compare outcomes for fast-moving and intermittent products.
+
+Evaluation measures:
+- Inventory holding cost.
+- Shortage cost.
+- Fill rate.
+- Average inventory.
+- Total simulated cost.
+
+Technical caution:
+Replenishment decisions need uncertainty over total demand during lead
+time. Adding individual daily forecast quantiles does not generally
+produce a valid lead-time demand quantile.
+
+Expected outcome:
+A major-project system linking forecast quality to simulated inventory
+cost and service performance.
+
+======================================================================
+8. RESEARCH QUESTION AND CONTRIBUTION
+======================================================================
+
+Suggested research question:
+
+"Do calibrated foundation-model forecasts improve inventory cost-service
+trade-offs compared with LightGBM and conventional replenishment policies,
+particularly for intermittent retail sales?"
+
+Why this is stronger than a basic forecasting project:
+- It evaluates uncertainty, not only point-prediction accuracy.
+- It measures decision outcomes, not only forecasting errors.
+- It studies differences between product-demand patterns.
+- It does not require inventing a new neural-network architecture.
+
+Using a pretrained model alone is not sufficient novelty for a strong
+major project.
+
+EXPERIMENTAL SAFEGUARDS
+-----------------------
+- Use chronological train, validation, and test splits, not random splits.
+- Calculate features using only information available at forecast time.
+- Treat future prices as known only when that assumption is justified.
+- Check whether evaluation datasets overlap with foundation-model
+  pretraining data; disclose uncertainty where overlap cannot be ruled out.
+- Document all simulator assumptions.
+- Do not promise a fixed percentage improvement or a publication before
+  running the experiments.
+
+======================================================================
+9. PYTHON LEARNING PATH FOR A JAVA DEVELOPER
+======================================================================
+
+You do not need to become an advanced Python developer before starting.
+
+Learn in this order:
+
+1. Python fundamentals
+   Syntax, functions, virtual environments, and package management.
+
+2. Data handling
+   pandas and NumPy for tabular data and numerical operations.
+
+3. Analysis
+   Plotting and basic time-series concepts.
+
+4. Baseline modelling
+   scikit-learn and LightGBM.
+
+5. Foundation-model use
+   Load a pretrained forecasting model and evaluate its predictions.
+
+Suggested technology stack:
+- Data: pandas, NumPy, Parquet.
+- Models: LightGBM and Chronos.
+- Evaluation: scikit-learn plus forecasting-specific metrics.
+- Demonstration interface: Streamlit.
+
+Hardware:
+A laptop is enough to begin data preparation and baseline experiments on
+a subset. Foundation-model runtime depends on model size, history length,
+and batch size. GPU access can help, but expensive training should not be
+a prerequisite.
+
+Java integration:
+Python inference can later be exposed through an API for a Java
+application. Avoid adding Spring Boot in Semester 3 unless required:
+it adds engineering effort without strengthening the core AI research.
+
+======================================================================
+10. FINAL RECOMMENDATION
+======================================================================
+
+Choose demand forecasting plus uncertainty-aware inventory replenishment,
+using the Walmart M5 dataset and Chronos-2 with strong baseline models.
+
+Semester 3:
+Deliver a reliable forecasting study and demonstration.
+
+Semester 4:
+Extend it into inventory simulation, uncertainty calibration, and
+cost-service trade-off analysis.
+
+This is manageable in stages, grounded in available data, uses modern AI,
+and has a natural, defensible extension into an M.Tech. major project.
+
+======================================================================
+11. SOURCE LINKS
+======================================================================
+
+Walmart M5 dataset:
+https://www.kaggle.com/competitions/m5-forecasting-accuracy/data
+
+UCI Online Retail II:
+https://archive.ics.uci.edu/dataset/502/online+retail+ii
+
+Chronos forecasting:
+https://github.com/amazon-science/chronos-forecasting
+
+TimesFM:
+https://github.com/google-research/timesfm

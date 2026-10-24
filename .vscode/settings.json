@@ -1,0 +1,5 @@
+{
+  "python.analysis.extraPaths": [
+    "semester3-demand-forecasting/src"
+  ]
+}
