@@ -133,6 +133,23 @@ also requires the Chronos extra to be installed. Progress and CLI output appear
 in the dashboard. The Streamlit menu remains available with its other controls;
 the Deploy button is hidden.
 
+To run your own data, expand **Run a study**, select **Upload Excel workbook**
+as the M5 data source, and upload one `.xlsx` workbook with three sheets:
+`sales` (or `sales_train_evaluation`), `calendar`, and
+`sell_prices` (or `prices`). Use the M5 column layout: the sales sheet needs
+`item_id`, `dept_id`, `cat_id`, `store_id`, `state_id`, and consecutive daily
+columns `d_1` through `d_N` (at least 320 days with the current backtest
+settings); the calendar sheet needs `d`,
+`date`, and `wm_yr_wk`; the prices sheet needs `store_id`, `item_id`,
+`wm_yr_wk`, and `sell_price`. The sales sheet may contain at most 10,000 series
+rows. The dashboard validates the workbook before it runs. Uploaded input and outputs are kept in separate `data/uploads/` and
+`reports/uploads/` folders, so they do not replace the standard M5 run.
+After a successful uploaded run, choose it from the Result set menu and open
+the Uploaded data tab to view all rows from the sales, calendar, or price sheet.
+For uploaded workbooks, choose either **All uploaded series** or the configured
+**Research sample** before running. All-series mode includes zero-sales series
+and can take substantially longer or require more memory.
+
 ## How the experiment stays honest
 
 - The sample is chosen from the year before the first test origin, not from the

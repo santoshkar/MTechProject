@@ -20,7 +20,7 @@ dependencies = [
 
 [project.optional-dependencies]
 chronos = ["chronos-forecasting"]
-dashboard = ["streamlit>=1.32"]
+dashboard = ["streamlit>=1.32", "openpyxl>=3.1"]
 dev = ["pytest>=8"]
 
 [project.scripts]

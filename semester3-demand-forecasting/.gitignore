@@ -15,10 +15,12 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 data/demo/
+data/uploads/
 
 reports/figures/*
 !reports/figures/.gitkeep
 reports/demo/
+reports/uploads/
 reports/*.csv
 reports/*.json
 reports/experiment_summary.md

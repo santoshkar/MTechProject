@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 def config_fingerprint(config: dict) -> str:
     relevant = {
         "seed": config["seed"],
-        "subset": config["subset"],
+        "subset": {**config["subset"], "all_series": bool(config["subset"].get("all_series", False))},
         "forecast": {
             "horizon": config["forecast"]["horizon"],
             "n_windows": config["forecast"]["n_windows"],

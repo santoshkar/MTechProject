@@ -12,6 +12,7 @@ data:
   prices_file: sell_prices.csv
 
 subset:
+  all_series: false
   # Class labels use only the pre-holdout window. Fix these thresholds before
   # looking at test metrics. They control the sample, not the model.
   lookback_days: 365

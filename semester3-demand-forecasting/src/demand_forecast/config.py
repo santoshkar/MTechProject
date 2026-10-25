@@ -22,6 +22,7 @@ DEFAULTS: dict[str, Any] = {
         "synthetic_series_per_class": 4,
     },
     "subset": {
+        "all_series": False,
         "lookback_days": 365,
         "counts": {"fast": 40, "slow": 40, "intermittent": 40},
         "fast_min_mean": 1.0,

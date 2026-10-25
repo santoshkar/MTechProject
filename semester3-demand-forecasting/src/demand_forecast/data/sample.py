@@ -11,6 +11,11 @@ logger = logging.getLogger(__name__)
 
 
 def sample_series(catalog: pd.DataFrame, config: dict) -> list[str]:
+    if config["subset"].get("all_series", False):
+        selected = sorted(catalog["series_id"].astype(str).unique())
+        logger.info("Including all %s input series in the study.", len(selected))
+        return selected
+
     eligible = catalog.loc[catalog["mean_sales"] > 0].copy()
     dropped = len(catalog) - len(eligible)
     if dropped:

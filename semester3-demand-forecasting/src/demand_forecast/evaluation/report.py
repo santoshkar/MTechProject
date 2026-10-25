@@ -112,6 +112,7 @@ def _summary_markdown(
 
 - Data source: `{metadata.get("source_signature", {}).get("source", config["data"]["source"])}`.
 - Series in the study sample: {metadata.get("n_series", "unknown")}.
+- Series selection: {"all input series" if config["subset"].get("all_series", False) else "configured demand-class sample"}.
 - Class counts: `{json.dumps(metadata.get("class_counts", {}))}`.
 - Horizon: {config["forecast"]["horizon"]} days.
 - Non-overlapping chronological windows: {config["forecast"]["n_windows"]}.
