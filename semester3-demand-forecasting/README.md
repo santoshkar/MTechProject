@@ -120,6 +120,19 @@ Open the dashboard after a forecast run:
 streamlit run app/dashboard.py
 ```
 
+The dashboard opens the available result set (preferring M5 when present) and
+lets you switch between M5 and the synthetic demo. Use Forecast explorer to
+filter by model, demand class, store, series, and forecast origin; use Model
+comparison to review overall and demand-class scores. The chart shows the
+actuals, point forecast, and interval bounds when the run includes quantiles.
+The synthetic demo is clearly marked and should only be used to check the UI and
+pipeline. Open the **Run a study** accordion to see buttons for the synthetic
+demo, an M5 baseline run without Chronos-2, and the full M5 comparison. The M5
+buttons enable only when all three source CSVs are present; the full comparison
+also requires the Chronos extra to be installed. Progress and CLI output appear
+in the dashboard. The Streamlit menu remains available with its other controls;
+the Deploy button is hidden.
+
 ## How the experiment stays honest
 
 - The sample is chosen from the year before the first test origin, not from the
